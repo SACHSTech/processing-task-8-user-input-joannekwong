@@ -1,13 +1,16 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Sketch extends PApplet {
-	
-	
-  /**
-   * Called once at the beginning of execution, put your size all in this method
-   */
+	PImage imgStar; 
+  PImage imgAlien;
+  PImage imgRocket;
+  PImage imgBackground1;
+  PImage imgBackground2;
+  PImage imgBackground3;
+  PImage imgCurrentBackground;
+
   public void settings() {
-	// put your size call here
     size(400, 400);
   }
 
@@ -16,21 +19,58 @@ public class Sketch extends PApplet {
    * values here i.e background, stroke, fill etc.
    */
   public void setup() {
-    background(210, 255, 173);
+    imgAlien = loadImage("alien.png"); 
+    imgAlien.resize(imgAlien.width/30, imgAlien.height/30);
+    imgStar = loadImage("star_small.png");
+    
+    imgRocket = loadImage("rocket.png");
+    imgRocket.resize(imgRocket.width/7, imgRocket.height/7);
+    
+    imgBackground1 = loadImage("space.png");
+    
+    imgBackground2 = loadImage("space2.PNG");
+    imgBackground2.resize(imgBackground2.width * 2, imgBackground2.height * 2);
+    
+    imgBackground3 = loadImage("space3.PNG");
+    imgBackground3.resize(imgBackground3.width * 2, imgBackground3.height * 2);
+    
+    background(128);
+    imgCurrentBackground = imgBackground1;
+    image(imgCurrentBackground,0,0);
+    
   }
 
-  /**
-   * Called repeatedly, anything drawn to the screen goes here
-   */
+  
   public void draw() {
-	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
-
-    stroke(255);
-    line(50, 125, 70, 50);  
+    if(keyPressed){
+      if(key == '1'){
+        imgCurrentBackground = imgBackground1;
+        image(imgCurrentBackground,0,0);
+      }
+        
+      else if (key == '2'){
+        imgCurrentBackground = imgBackground2;
+        image(imgCurrentBackground,0,0);
+      }
+        
+      else if (key == '3'){
+        imgCurrentBackground = imgBackground3;
+        image(imgCurrentBackground,0,0);
+      }
+    }
   }
   
+  public void mouseClicked(){
+    image(imgStar,mouseX, mouseY);
+  }
+  
+  public void mouseDragged(){
+    image(imgCurrentBackground,0,0);
+    image(imgRocket, mouseX, mouseY);
+  }
+  
+  public void mouseWheel(){
+    image(imgAlien, mouseX, mouseY);
+  }
   // define other methods down here.
 }
